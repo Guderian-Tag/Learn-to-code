@@ -1,0 +1,26 @@
+@Path("")
+public interface IMessageSendService {
+	
+	/**
+	 * 
+	 * @param orderCode
+	 * @param messageSendId
+	 * @param messageReceivedId
+	 * @param parendId
+	 * @param message
+	 * @param messageType
+	 * @param messageTitle
+	 * @param platforms
+	 * @return
+	 */
+	@Path("/sendMessage/")
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public int addNewMessage(@FormParam("orderCode")String orderCode,@FormParam("messageSendId")String messageSendId,
+			@FormParam("messageReceivedId")String messageReceivedId,@FormParam("parendId")String parendId,
+			@FormParam("message")String message,@FormParam("messageType")String messageType,
+			@FormParam("messageTitle")String messageTitle,@FormParam("platforms")String platforms,
+			@FormParam("portraitUrl")String portraitUrl);
+	
+}
