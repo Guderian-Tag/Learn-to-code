@@ -1,0 +1,135 @@
+// second
+//以下代码不可以直接使用，go语言中凡是声明过的变量都要使用，否则会报错
+//以下代码只是go语言基础总结，包括了从变量声明到switch分支
+package main
+
+import (
+	"fmt"
+)
+
+//声明常量
+const (
+	i            = 0
+	s     string = "Test"
+	Start string = "go语言开始" //首字母大写的变量是公有的(待验证)
+)
+
+//声明一组全局变量
+var (
+	k    int
+	s2   string
+	flag bool
+)
+
+//枚举类型iota关键字，默认是0，每次自动增长1
+const (
+	p1 = iota //p1=0
+	p2 = iota //p2=1
+	p3        //p3=2
+	p4        //p4=3
+)
+
+func testMap() {
+	var mp map[string]int       //声明一个map
+	mp2 := make(map[string]int) //map的另一种声明方式
+	mp2["one"] = 1
+	mp2["two"] = 2          //给map赋值
+	fmt.Println(mp2["two"]) //将key two对应的值打印出来
+	//map是无序的，每次打印都不一样，只能通过key获取。内置方法len返回map的key的数量
+	mp2["one"] = 10 //将one 对应的值改为10
+	m3 := mp2
+	m3["two"] = 4                            //此时mp2的mp2["two"]变为4
+	delete(mp2, "one")                       //删除key为one的元素
+	rating := map[string]int{"1": 2, "2": 3} //初始化一个字典
+}
+
+//goto语句
+func testGoto() {
+	i := 0
+Here: //声明一个跳转标签
+	fmt.Println(i)
+	if i < 10 {
+		i++
+		goto Here //跳转到标签处
+	}
+}
+
+//for语句
+func testFor() {
+	var s [10]int
+	for j := 0; j < len(s); j++ {
+		s[j] = j //数组负责
+	}
+	for j := 0; j < len(s); j++ {
+		fmt.Println(s[j]) //打印出数组的每一个值
+	}
+	//for+if语句
+	for i := 0; i < 100; i++ {
+		if i%3 == 0 && i%5 != 0 {
+			fmt.Println("Fizz")
+		} else if i%5 == 0 && i%3 != 0 {
+			fmt.Println("Bizz")
+		} else if i%15 == 0 {
+			fmt.Println("FizzBizz")
+		} else {
+			fmt.Println(i)
+		}
+
+	}
+	//打印出金字塔形的A
+	for i := 1; i <= 100; i++ {
+		for j := 1; j <= i; j++ {
+			fmt.Printf("%s", "A")
+		}
+		fmt.Println()
+	}
+}
+
+//遍历map
+func eachMap() {
+	mp2 := make(map[string]int) //map的另一种声明方式
+	mp2["one"] = 1
+	mp2["two"] = 2
+	for k, v := range mp2 {
+		fmt.Println("key:", k)
+		fmt.Println("val:", v)
+	}
+	//只输出map的值
+	for _, v := range mp2 {
+		fmt.Println("val:", v)
+	}
+}
+
+//switch语句
+func testSwitch() {
+	index := 4
+	switch index {
+	case 4:
+		fmt.Println("hello 4")
+		fallthrough //强制执行后面的语句
+	case 5:
+		fmt.Println("hello 5")
+	default:
+		fmt.Println("继续测试")
+	}
+}
+
+//首字母大写的方法是公共方法，
+func Test() {
+	var arr [10]int //声明一个长度为10的整形数组
+	arr[0] = 10     //赋值
+	arr[1] = 20
+	arr2 := [3]int{1, 2, 3}                              //声明一个长度为3的整形数组并赋值
+	arr3 := [...]int{2, 3, 4}                            //动态声明一个数组
+	doubleArray := [2][2]int{[2]int{1, 2}, [2]int{3, 4}} //声明一个二维数组
+	easyDouble := [2][2]int{{1, 2}, {2, 3}}              //二维数组的另一种声明方式,内外类型一致
+	var fslice []int                                     //声明一个切片，和数组相比去掉了长度
+	sslice := []byte{1, 2, 3, 4}                         //声明并初始化一个切片
+	tslice := arr2[0:2]                                  //切片包含数组arr2中的arr[0],arr[1],切片声明arr[n:m],包含的元素为从arr[n到arr[m-1]
+	fmt.Println("测试")
+}
+
+//首字母小写的方法是私有方法
+func test() {
+	fmt.Println("测试")
+}
